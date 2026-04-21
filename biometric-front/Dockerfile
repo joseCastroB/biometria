@@ -7,10 +7,14 @@ COPY . .
 # Creamos la versión de producción
 RUN npm run build
 
-# Etapa 2: Servidor de Producción
+# Etapa 2: Producción con Nginx
 FROM nginx:stable-alpine
-# Copiamos el build a la carpeta de Nginx
+
+# Copiamos nuestro config personalizado
+COPY nginx.conf /etc/nginx/conf.d/default.conf.template
+
+# Copiamos los archivos de React
 COPY --from=build /app/build /usr/share/nginx/html
-# Exponemos el puerto estándar de HTTP
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+
+# Comando mágico para inyectar el puerto de Railway antes de iniciar
+CMD ["/bin/sh", "-c", "envsubst '${PORT}' < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf && exec nginx -g 'daemon off;'"]
