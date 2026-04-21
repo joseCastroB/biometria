@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+python-multipart
+opencv-python-headless
+deepface
+psycopg2-binary
+numpy
+passlib[bcrypt]
+bcrypt==4.0.1
+tf-keras
+tensorflow-cpu==2.13.0
