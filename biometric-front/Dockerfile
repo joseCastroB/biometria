@@ -1,6 +1,14 @@
 # Etapa 1: Construcción
 FROM node:18-alpine as build
 WORKDIR /app
+
+# --- ESTA ES LA PARTE CLAVE QUE FALTA ---
+# Declaramos que vamos a recibir esta variable de Railway
+ARG REACT_APP_API_URL
+# La inyectamos en el entorno de construcción
+ENV REACT_APP_API_URL=$REACT_APP_API_URL
+# ----------------------------------------
+
 COPY package*.json ./
 RUN npm install
 COPY . .
