@@ -5,9 +5,11 @@ FROM python:3.11-slim
 WORKDIR /app
 
 # Instalar dependencias del sistema para OpenCV y DeepFace
-RUN apt-get update && apt-get install -y \
-    libgl1-mesa-glx \
+RUN apt-get update --fix-missing && \
+    apt-get install -y --no-install-recommends \
+    libgl1 \
     libglib2.0-0 \
+    && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 # Instalar dependencias de Python
