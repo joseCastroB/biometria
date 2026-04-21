@@ -9,6 +9,7 @@ function VistaLogin() {
   const [estado, setEstado] = useState({ tipo: '', texto: '' });
 
   const verificarAcceso = async () => {
+    console.log("Mi API URL es:", process.env.REACT_APP_API_URL);
     if (!username || !password) {
       setEstado({ tipo: 'error', texto: 'Ingresa tu usuario y contraseña primero.' });
       return;
